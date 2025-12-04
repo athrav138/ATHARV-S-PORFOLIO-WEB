@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atharv Suryavanshi | Professional Portfolio</title>
+    <title>Atharv Suryavanshi | Portfolio</title>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/jpeg" href="Atharv.jpg">
@@ -101,13 +101,13 @@
 
         /* --- 3. NAVBAR --- */
         .navbar {
-            background-color: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+            background-color: transparent;   /* transparent nav */
+            backdrop-filter: none;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: none;
         }
 
         .nav-container {
@@ -155,7 +155,6 @@
             overflow: hidden;
         }
 
-        /* Glow Effect */
         .hero::before {
             content: '';
             position: absolute;
@@ -168,7 +167,6 @@
             z-index: -1;
         }
 
-        /* Profile Picture Style */
         .hero-img-container {
             width: 160px;
             height: 160px;
@@ -193,16 +191,21 @@
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
+            font-size: 3.2rem;
+            margin-bottom: 10px;
             line-height: 1.1;
         }
 
         .hero-content h2 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 300;
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
         }
 
         .typewriter {
@@ -247,8 +250,9 @@
         }
 
         .skill-card h3 { font-size: 1.2rem; margin-bottom: 5px; }
+        .skill-card p { font-size: 0.9rem; color: var(--text-muted); }
 
-        /* --- 6. EXPERIENCE (RESUME) --- */
+        /* --- 6. EXPERIENCE (EDUCATION / GOALS) --- */
         .timeline {
             position: relative;
             max-width: 800px;
@@ -339,10 +343,18 @@
             font-size: 1.5rem;
         }
 
+        .achievement-card h3 {
+            font-size: 1.05rem;
+        }
+        .achievement-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
         /* --- 8. PROJECTS SECTION --- */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
@@ -360,36 +372,36 @@
         }
 
         .project-img {
-            height: 200px;
+            height: 180px;
             background-color: #334155;
-            overflow: hidden; /* Ensures image doesn't spill out */
+            overflow: hidden;
         }
-        
-        /* Updated Image Styles */
+
         .project-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Keeps image proportional */
+            object-fit: cover;
             transition: var(--transition);
         }
 
         .project-card:hover .project-img img {
-            transform: scale(1.05); /* Zoom effect on hover */
+            transform: scale(1.05);
         }
 
-        .project-info { padding: 25px; }
-        .project-info h3 { margin-bottom: 10px; color: var(--text-main); }
-        .project-info p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
-        
-        .tags { display: flex; gap: 10px; margin-bottom: 15px; }
-        .tag { background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; color: var(--primary); }
+        .project-info { padding: 20px 22px 22px; }
+        .project-info h3 { margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem; }
+        .project-info p { color: var(--text-muted); margin-bottom: 15px; font-size: 0.9rem; }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .tag { background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; color: var(--primary); }
 
         .project-links a {
-            margin-right: 15px;
+            margin-right: 12px;
             font-size: 0.9rem;
             color: var(--text-main);
             font-weight: 500;
         }
+        .project-links a i { margin-right: 4px; }
         .project-links a:hover { color: var(--primary); }
 
         /* --- 9. CONTACT SECTION --- */
@@ -418,6 +430,14 @@
             margin-right: 15px;
         }
 
+        .contact-item h3 {
+            margin-bottom: 4px;
+        }
+        .contact-item p, .contact-item a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
         .contact-form {
             flex: 1;
             min-width: 300px;
@@ -436,6 +456,7 @@
             color: #fff;
             border-radius: 5px;
             font-family: inherit;
+            font-size: 0.95rem;
         }
 
         input:focus, textarea:focus {
@@ -455,7 +476,7 @@
         .social-links { margin-bottom: 20px; }
         .social-links a {
             font-size: 1.2rem;
-            margin: 0 10px;
+            margin: 0 8px;
             width: 40px;
             height: 40px;
             line-height: 40px;
@@ -466,11 +487,16 @@
         }
         .social-links a:hover { background: var(--primary); color: var(--bg-color); }
 
+        footer p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
         /* --- 11. RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-content h2 { font-size: 1.2rem; }
-            
+            .hero-content h1 { font-size: 2.4rem; }
+            .hero-content h2 { font-size: 1.1rem; }
+
             .menu-btn { display: block; }
             .nav-links {
                 position: absolute;
@@ -482,7 +508,7 @@
                 align-items: center;
                 padding: 20px 0;
                 gap: 20px;
-                display: none; /* Hidden by default */
+                display: none;
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
             .nav-links.active { display: flex; }
@@ -500,13 +526,13 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">Port<span style="color:var(--primary)">Folio</span></a>
+            <a href="#home" class="logo">Atharv<span style="color:var(--primary)">.Portfolio</span></a>
             <div class="menu-btn"><i class="fas fa-bars"></i></div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Resume</a></li>
-                <li><a href="#achievements">Awards</a></li>
+                <li><a href="#experience">Journey</a></li>
+                <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -516,17 +542,18 @@
     <!-- HERO SECTION -->
     <section id="home" class="hero">
         <div class="container hero-content">
-            
-            <!-- PROFILE IMAGE (Change src to your local file path, e.g., 'profile.jpg') -->
             <div class="hero-img-container">
                 <img src="Atharv.jpg" alt="Atharv Profile Picture">
             </div>
             
-            <h1>Hi, I'm Atharv Suryavanshi</h1>
-            <h2>I am a <span class="typewriter" id="typewriter">Cyber Security Engineer</span></h2>
-            <div class="buttons">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#experience" class="btn btn-outline">Download Resume</a>
+            <h1>Hi, I'm Atharv Milind Suryavanshi</h1>
+            <h2>Cyber Security & Problem Solving Enthusiast</h2>
+            <p>I love exploring <strong>Cyber Security</strong>, <strong>C/C++</strong>, and <strong>DSA</strong> while building real-world projects in web development.</p>
+            <h2>I am a <span class="typewriter" id="typewriter">Student</span></h2>
+
+            <div class="buttons" style="margin-top: 15px;">
+                <a href="#projects" class="btn btn-primary">View My Projects</a>
+                <a href="https://shorturl.at/aOOZP" class="btn btn-outline" target="_blank" rel="noopener">Download Resume</a>
             </div>
         </div>
     </section>
@@ -535,79 +562,89 @@
     <section id="skills">
         <div class="container">
             <h2 class="section-title">My <span>Skills</span></h2>
-            <p class="section-subtitle">The technical stack I use</p>
+            <p class="section-subtitle">Technologies & concepts I work with</p>
             <div class="skills-grid">
                 <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>C & C++</h3>
+                    <p>Strong foundation in programming, memory management, and problem solving.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-diagram-project"></i>
+                    <h3>Data Structures & Algorithms</h3>
+                    <p>Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, and algorithmic thinking.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-cubes"></i>
+                    <h3>Object-Oriented Programming</h3>
+                    <p>Classes, objects, inheritance, polymorphism, encapsulation, and abstraction.</p>
+                </div>
+                <div class="skill-card">
                     <i class="fab fa-html5"></i>
-                    <h3>HTML5</h3>
-                    <p>Semantic Structure</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-css3-alt"></i>
-                    <h3>CSS3</h3>
-                    <p>Responsive Layouts</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-js"></i>
-                    <h3>JavaScript</h3>
-                    <p>Dynamic Interactivity</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-react"></i>
-                    <h3>React</h3>
-                    <p>Modern UI Components</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-node"></i>
-                    <h3>Node.js</h3>
-                    <p>Backend Logic</p>
+                    <h3>HTML & CSS</h3>
+                    <p>Building responsive and clean user interfaces for the web.</p>
                 </div>
                 <div class="skill-card">
                     <i class="fas fa-database"></i>
-                    <h3>SQL / NoSQL</h3>
-                    <p>Data Management</p>
+                    <h3>SQL & PL/SQL</h3>
+                    <p>Database design, queries, and procedural extensions for data handling.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-shield-halved"></i>
+                    <h3>Cyber Security Basics</h3>
+                    <p>Interest in ethical hacking, security concepts, and safe coding practices.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-terminal"></i>
+                    <h3>Vibe Coding</h3>
+                    <p>Consistent coding practice through projects, contests, and experiments.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Prompt Engineering</h3>
+                    <p>Designing effective prompts to get the best out of AI models.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- RESUME / EXPERIENCE SECTION -->
+    <!-- JOURNEY / EDUCATION SECTION -->
     <section id="experience" style="background-color: #162032;">
         <div class="container">
-            <h2 class="section-title">Work <span>Experience</span></h2>
-            <p class="section-subtitle">My professional journey</p>
+            <h2 class="section-title">My <span>Journey</span></h2>
+            <p class="section-subtitle">Where I am and where I'm heading</p>
             
             <div class="timeline">
                 <div class="timeline-item left">
                     <div class="timeline-content">
-                        <span class="date">2022 - Present</span>
-                        <h3>Senior Web Developer</h3>
-                        <h4>Tech Solutions Inc.</h4>
-                        <p>Leading the frontend team, optimizing web performance, and mentoring junior developers.</p>
+                        <span class="date">2024 - Present</span>
+                        <h3>Diploma in Computer Engineering</h3>
+                        <h4>MSBTE</h4>
+                        <p>Learning core CS subjects like Programming, DSA, DBMS, and Computer Networks while building projects in web development and security.</p>
                     </div>
                 </div>
                 <div class="timeline-item right">
                     <div class="timeline-content">
-                        <span class="date">2020 - 2022</span>
-                        <h3>Frontend Developer</h3>
-                        <h4>Creative Digital Agency</h4>
-                        <p>Built responsive websites for global clients using modern JavaScript frameworks.</p>
+                        <span class="date">2023</span>
+                        <h3>SSC (10th Board)</h3>
+                        <h4>State Board</h4>
+                        <p>Completed SSC with strong fundamentals, scoring excellent marks and building interest in technology and computers.</p>
                     </div>
                 </div>
                 <div class="timeline-item left">
                     <div class="timeline-content">
-                        <span class="date">2018 - 2020</span>
-                        <h3>Junior Developer</h3>
-                        <h4>StartUp Hub</h4>
-                        <p>Assisted in developing MVP products and debugging legacy codebases.</p>
+                        <span class="date">2025 - 2028 (Goal)</span>
+                        <h3>B.Tech in AI & ML</h3>
+                        <h4>Future Plan</h4>
+                        <p>Aiming to pursue a B.Tech in Artificial Intelligence & Machine Learning to go deeper into advanced tech and problem solving.</p>
                     </div>
                 </div>
                 <div class="timeline-item right">
                     <div class="timeline-content">
-                        <span class="date">2014 - 2018</span>
-                        <h3>BSc Computer Science</h3>
-                        <h4>University of Technology</h4>
-                        <p>Graduated with First Class Honors. Specialized in Human-Computer Interaction.</p>
+                        <span class="date">Long Term</span>
+                        <h3>UPSC (IAS / IFS) Aspirant</h3>
+                        <h4>Future Vision</h4>
+                        <p>Along with tech, I want to contribute to society by preparing for IAS/IFS and combining technology with public service.</p>
                     </div>
                 </div>
             </div>
@@ -618,34 +655,34 @@
     <section id="achievements">
         <div class="container">
             <h2 class="section-title"><span>Achievements</span></h2>
-            <p class="section-subtitle">Awards & Certifications</p>
+            <p class="section-subtitle">Some things I'm proud of</p>
             <div class="achievements-grid">
                 <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="achievement-icon"><i class="fas fa-graduation-cap"></i></div>
                     <div>
-                        <h3>Best Developer 2023</h3>
-                        <p>Awarded by TechCorp</p>
+                        <h3>Strong Academic Performance</h3>
+                        <p>Consistent focus on fundamentals in Mathematics, Science, and Computer Science.</p>
                     </div>
                 </div>
                 <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="achievement-icon"><i class="fas fa-laptop-code"></i></div>
                     <div>
-                        <h3>AWS Certified</h3>
-                        <p>Solutions Architect</p>
+                        <h3>Real Web Projects</h3>
+                        <p>Built multiple deployed projects like E-Book website, portfolio sites, calculators, and animated UIs.</p>
+                    </div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-bug-slash"></i></div>
+                    <div>
+                        <h3>Cyber Security Interest</h3>
+                        <p>Actively learning about ethical hacking, secure coding, and cyber security fundamentals.</p>
                     </div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-icon"><i class="fas fa-code"></i></div>
                     <div>
-                        <h3>Hackathon Winner</h3>
-                        <p>Global Code Jam</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-star"></i></div>
-                    <div>
-                        <h3>Top Rated Freelancer</h3>
-                        <p>Upwork Top 1%</p>
+                        <h3>DSA & Coding Practice</h3>
+                        <p>Solving problems on platforms like LeetCode and HackerRank to sharpen logic and problem solving.</p>
                     </div>
                 </div>
             </div>
@@ -655,66 +692,130 @@
     <!-- PROJECTS SECTION -->
     <section id="projects" style="background-color: #162032;">
         <div class="container">
-            <h2 class="section-title">Featured <span>Projects</span></h2>
-            <p class="section-subtitle">Some of my recent works</p>
+            <h2 class="section-title">My <span>Projects</span></h2>
+            <p class="section-subtitle">All projects are live and hosted publicly</p>
             <div class="project-grid">
-                <!-- Project 1 -->
+
+                <!-- Project 1: Apna E-Book -->
                 <div class="project-card">
-                    <!-- IMAGE PLACEHOLDER: Change src to your file (e.g. 'ecommerce.jpg') -->
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="E-Commerce Project">
+                        <img src="Ebook.png" alt="Apna E-Book Website">
                     </div>
                     <div class="project-info">
-                        <h3>E-Commerce Store</h3>
+                        <h3>Apna E-Book</h3>
                         <div class="tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">Frontend</span>
                         </div>
-                        <p>A fully functional online store with cart functionality and payment integration.</p>
+                        <p>An e-book platform UI where users can explore books in a clean, simple interface.</p>
                         <div class="project-links">
-                            <a href="#"><i class="fab fa-github"></i> Code</a>
-                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https://github.com/athrav138/Apna-E-Book-Website" target="_blank"><i class="fab fa-github"></i>Code</a>
+                            <a href="https://athrav138.github.io/Apna-E-Book-Website/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
                         </div>
                     </div>
                 </div>
-                <!-- Project 2 -->
+
+                <!-- Project 2: Web AI Hackathon -->
                 <div class="project-card">
-                     <!-- IMAGE PLACEHOLDER -->
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Weather Project">
+                        <img src="Taskmanager.png" alt="Web AI Hackathon">
                     </div>
                     <div class="project-info">
-                        <h3>Weather Dashboard</h3>
+                        <h3>Web AI Hackathon Project</h3>
                         <div class="tags">
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">API</span>
+                            <span class="tag">Web</span>
+                            <span class="tag">AI Concept</span>
                         </div>
-                        <p>Real-time weather application using OpenWeatherMap API and fetch.</p>
+                        <p>A project built for a Web AI hackathon, combining UI and AI-based ideas into an interactive experience.</p>
                         <div class="project-links">
-                            <a href="#"><i class="fab fa-github"></i> Code</a>
-                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https://github.com/athrav138/WEBAI-HACKATHON" target="_blank"><i class="fab fa-github"></i>Code</a>
+                            <a href="https://athrav138.github.io/WEBAI-HACKATHON/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
                         </div>
                     </div>
                 </div>
-                <!-- Project 3 -->
+
+                <!-- Project 3: Calculator Website -->
                 <div class="project-card">
-                     <!-- IMAGE PLACEHOLDER -->
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Task App Project">
+                        <img src="Calci.png" alt="Calculator Website">
                     </div>
                     <div class="project-info">
-                        <h3>Task Manager App</h3>
+                        <h3>Calculator Website</h3>
                         <div class="tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
                             <span class="tag">JavaScript</span>
-                            <span class="tag">LocalStorage</span>
                         </div>
-                        <p>Productivity tool to manage daily tasks with local storage data persistence.</p>
+                        <p>A simple and clean calculator with basic operations, built using HTML, CSS, and JavaScript.</p>
                         <div class="project-links">
-                            <a href="#"><i class="fab fa-github"></i> Code</a>
-                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https://github.com/athrav138/HTML-CSS-AND-JS-SIMPLE-PROJECTS" target="_blank"><i class="fab fa-github"></i>Code</a>
+                            <a href="https://athrav138.github.io/HTML-CSS-AND-JS-SIMPLE-PROJECTS/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
                         </div>
                     </div>
                 </div>
+
+                <!-- Project 4: Animated Login & Signup UI -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="signup.png" alt="Animated Login Signup UI">
+                    </div>
+                    <div class="project-info">
+                        <h3>Animated Login & Signup UI</h3>
+                        <div class="tags">
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                        <p>An animated authentication UI with modern transitions for login and signup pages.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/athrav138/Animated-Login-Signup-UI" target="_blank"><i class="fab fa-github"></i>Code</a>
+                            <a href="https://athrav138.github.io/Animated-Login-Signup-UI/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Portfolio Website 1 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="portfolio.png" alt="Portfolio Website 1">
+                    </div>
+                    <div class="project-info">
+                        <h3>Portfolio Website v1</h3>
+                        <div class="tags">
+                            <span class="tag">Portfolio</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                        <p>One of my early portfolio designs to showcase my skills and projects with a clean layout.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/athrav138/ATHARV-S-PORFOLIO-WEB" target="_blank"><i class="fab fa-github"></i>Code</a>
+                            <a href="https://athrav138.github.io/ATHARV-S-PORFOLIO-WEB/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
+                            <a href="https://bit.ly/3KqiIBe" target="_blank"><i class="fas fa-link"></i>Short Link</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Portfolio Website 2 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="portfolio2.png" alt="Portfolio Website 2">
+                    </div>
+                    <div class="project-info">
+                        <h3>Portfolio Website v2</h3>
+                        <div class="tags">
+                            <span class="tag">Portfolio</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                        <p>An improved version of my portfolio website with better structure and UI enhancements.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/athrav138/Atharv-s-Portfolio-Website" target="_blank"><i class="fab fa-github"></i>Code</a>
+                            <a href="https://athrav138.github.io/Atharv-s-Portfolio-Website/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -723,7 +824,7 @@
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Contact <span>Me</span></h2>
-            <p class="section-subtitle">Let's work together</p>
+            <p class="section-subtitle">Let's collaborate or connect</p>
             
             <div class="contact-container">
                 <div class="contact-info">
@@ -731,21 +832,21 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>hello@johndoe.com</p>
+                            <p><a href="mailto:suryavanshiathrav072@gmail.com">suryavanshiathrav072@gmail.com</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3>Phone</h3>
-                            <p>+1 234 567 890</p>
+                            <p><a href="tel:+919922157472">+91 99221 57472</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h3>Location</h3>
-                            <p>New York, USA</p>
+                            <p>Kurundwad, Dist-Kolhapur, Maharashtra, India - 416106</p>
                         </div>
                     </div>
                 </div>
@@ -773,24 +874,23 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/athrav138" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/atharv-suryavanshi-5b0969352" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://leetcode.com/u/Atharv138/" target="_blank"><i class="fas fa-code"></i></a>
+                <a href="https://www.hackerrank.com/profile/suryavanshiathr1" target="_blank"><i class="fab fa-hackerrank"></i></a>
+                <a href="https://www.instagram.com/atharv_8830" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
-            <p>&copy; 2024 John Doe. All Rights Reserved.</p>
+            <p>&copy; 2025 Atharv Milind Suryavanshi. All Rights Reserved.</p>
         </div>
     </footer>
 
     <!-- JAVASCRIPT -->
     <script>
-        // --- Mobile Menu Toggle ---
         const menuBtn = document.querySelector('.menu-btn');
         const navLinks = document.querySelector('.nav-links');
 
         menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            // Change Icon
             const icon = menuBtn.querySelector('i');
             if (navLinks.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
@@ -801,7 +901,6 @@
             }
         });
 
-        // Close menu when link is clicked (Mobile)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -810,9 +909,14 @@
             });
         });
 
-        // --- Typewriter Effect ---
         const textElement = document.getElementById('typewriter');
-        const words = ['Developer', 'Designer', 'Freelancer', 'Problem Solver'];
+        const words = [
+            'Cyber Security Enthusiast',
+            'C & C++ Programmer',
+            'DSA Learner',
+            'Future Software Architect',
+            'UPSC (IAS/IFS) Aspirant'
+        ];
         let wordIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -829,21 +933,17 @@
             }
 
             if (!isDeleting && charIndex === currentWord.length) {
-                // Finished typing word, wait before deleting
                 isDeleting = true;
-                setTimeout(type, 2000); 
+                setTimeout(type, 1500);
             } else if (isDeleting && charIndex === 0) {
-                // Finished deleting, move to next word
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % words.length;
-                setTimeout(type, 500);
+                setTimeout(type, 400);
             } else {
-                // Typing speed
-                setTimeout(type, isDeleting ? 50 : 150);
+                setTimeout(type, isDeleting ? 60 : 120);
             }
         }
 
-        // Start typing effect when DOM loads
         document.addEventListener('DOMContentLoaded', type);
     </script>
 </body>
