@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atharv Suryavanshi | Portfolio</title>
-    <!-- Font Awesome for Icons -->
+    <title>Atharv Suryavanshi | Professional Portfolio</title>
+    <!-- Font Awesome for Icons (v6.4.0) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon - Ensure 'Atharv.jpg' is available -->
     <link rel="icon" type="image/jpeg" href="Atharv.jpg">
 
     <style>
         /* --- 1. CSS VARIABLES & RESET --- */
         :root {
-            --bg-color: #0f172a;      /* Dark Blue/Gray Background */
-            --card-bg: #1e293b;       /* Slightly lighter for cards */
-            --primary: #38bdf8;       /* Cyan Accent */
-            --secondary: #a855f7;     /* Purple Accent */
-            --text-main: #f1f5f9;     /* White/Light Gray Text */
-            --text-muted: #94a3b8;    /* Muted Text */
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --bg-color: #0f172a;       /* Dark Blue/Gray Background */
+            --card-bg: #1e293b;        /* Slightly lighter for cards */
+            --primary: #38bdf8;        /* Cyan Accent */
+            --secondary: #a855f7;      /* Purple Accent */
+            --text-main: #f1f5f9;      /* White/Light Gray Text */
+            --text-muted: #94a3b8;     /* Muted Text */
+            --font-main: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --transition: all 0.3s ease;
         }
 
@@ -33,11 +34,17 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden; 
         }
 
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
+
+        /* Custom Scrollbar */
+        body::-webkit-scrollbar { width: 8px; }
+        body::-webkit-scrollbar-thumb { background-color: var(--primary); border-radius: 10px; }
+        body::-webkit-scrollbar-track { background-color: var(--bg-color); }
 
         /* --- 2. LAYOUT & UTILITIES --- */
         .container {
@@ -47,23 +54,49 @@
         }
 
         section {
-            padding: 80px 0;
+            /* Reduced padding for less vertical space (Was 80px) */
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.05); 
+        }
+
+        /* Scroll Reveal Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .section-title span {
             color: var(--primary);
+            position: relative;
+        }
+        .section-title span::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 5px auto 0;
+            border-radius: 5px;
         }
 
         .section-subtitle {
             text-align: center;
             color: var(--text-muted);
-            margin-bottom: 4rem;
+            margin-bottom: 3rem; /* Reduced space below subtitle (Was 4rem) */
+            font-style: italic;
         }
 
         .btn {
@@ -75,17 +108,21 @@
             cursor: pointer;
             margin: 5px;
             border: 2px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-primary {
             background-color: var(--primary);
             color: var(--bg-color);
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
         }
 
         .btn-primary:hover {
             background-color: transparent;
             border-color: var(--primary);
             color: var(--primary);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
         }
 
         .btn-outline {
@@ -95,19 +132,26 @@
         }
 
         .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+            border-color: var(--secondary); 
+            color: var(--secondary);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
         }
 
         /* --- 3. NAVBAR --- */
         .navbar {
-            background-color: transparent;   /* transparent nav */
+            background-color: transparent;
             backdrop-filter: none;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: none;
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+        }
+        /* Navbar Opaque after scrolling */
+        .navbar.scrolled {
+            background-color: #0c1424; /* Solid, opaque background */
+            backdrop-filter: none; 
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
         }
 
         .nav-container {
@@ -120,6 +164,7 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
+            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -131,10 +176,26 @@
             font-weight: 500;
             font-size: 0.95rem;
             transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
         }
-
-        .nav-links a:hover {
-            color: var(--primary);
+        .nav-links a.active {
+             color: var(--primary);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
         }
 
         /* Mobile Menu */
@@ -142,6 +203,7 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--primary);
         }
 
         /* --- 4. HERO SECTION --- */
@@ -165,16 +227,23 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: -1;
+            animation: pulse 10s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.35; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
         }
 
         .hero-img-container {
-            width: 160px;
-            height: 160px;
+            width: 180px; 
+            height: 180px; 
             margin: 0 auto 25px auto;
             border-radius: 50%;
-            border: 4px solid var(--primary);
+            border: 5px solid var(--primary); 
             overflow: hidden;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.6); 
             animation: float 6s ease-in-out infinite;
         }
 
@@ -182,50 +251,86 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: grayscale(10%); 
+            transition: filter 0.5s ease;
+        }
+        .hero-img-container:hover img {
+            filter: grayscale(0%);
         }
 
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); } 
             100% { transform: translateY(0px); }
         }
 
         .hero-content h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem; 
             margin-bottom: 10px;
             line-height: 1.1;
+            background: linear-gradient(90deg, var(--text-main), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-content h2 {
-            font-size: 1.5rem;
+            font-size: 1.6rem; 
             font-weight: 300;
             color: var(--text-muted);
             margin-bottom: 10px;
         }
 
-        .hero-content p {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-        }
-
         .typewriter {
             color: var(--primary);
-            font-weight: bold;
+            font-weight: 700;
             border-right: 2px solid var(--primary);
             padding-right: 5px;
             animation: blink 0.75s step-end infinite;
+            display: inline-block;
         }
 
         @keyframes blink {
             from, to { border-color: transparent }
             50% { border-color: var(--primary) }
         }
+        
+        /* --- 5. ABOUT ME SECTION --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .about-image {
+            text-align: center;
+        }
+        .about-image img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 12px;
+            border: 4px solid var(--secondary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-top: 10px;
+        }
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .about-content p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
 
-        /* --- 5. SKILLS SECTION --- */
+        /* --- 6. SKILLS & LEARNING TRACKER SECTION --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 40px;
         }
 
         .skill-card {
@@ -233,128 +338,269 @@
             padding: 30px;
             border-radius: 12px;
             text-align: center;
-            transition: var(--transition);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
             border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
-
+        
         .skill-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px); 
             border-color: var(--primary);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 15px rgba(56, 189, 248, 0.4);
         }
 
         .skill-card i {
-            font-size: 3rem;
+            font-size: 3.5rem; 
             color: var(--primary);
             margin-bottom: 15px;
+            transition: color 0.3s ease;
         }
-
-        .skill-card h3 { font-size: 1.2rem; margin-bottom: 5px; }
+        .skill-card:hover i {
+            color: var(--secondary);
+        }
+        .skill-card h3 { font-size: 1.25rem; margin-bottom: 5px; color: var(--text-main); }
         .skill-card p { font-size: 0.9rem; color: var(--text-muted); }
 
-        /* --- 6. EXPERIENCE (EDUCATION / GOALS) --- */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
+        /* Dynamic Learning Tracker (Feature 7) */
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 2px;
+        .progress-item h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .progress-bar {
             background-color: var(--card-bg);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1px;
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: var(--secondary);
+            border-radius: 10px;
+            transition: width 1.5s ease-out;
+            box-shadow: 0 0 5px var(--secondary);
         }
 
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
+        /* --- 7. CERTIFICATIONS SECTION --- */
+        .certification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
-
-        .timeline-item.left { left: 0; text-align: right; }
-        .timeline-item.right { left: 50%; }
-
-        .timeline-content {
+        .cert-card {
+            background-color: var(--card-bg);
             padding: 25px;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border-left: 5px solid var(--secondary);
             transition: var(--transition);
         }
-
-        .timeline-content:hover {
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             border-color: var(--primary);
         }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--primary);
-            border: 4px solid var(--bg-color);
-            border-radius: 50%;
-            top: 25px;
-            z-index: 1;
-        }
-
-        .left::after { right: -10px; }
-        .right::after { left: -10px; }
-
-        .date {
-            color: var(--primary);
-            font-size: 0.9rem;
-            font-weight: bold;
+        .cert-card h3 {
+            color: var(--text-main);
+            font-size: 1.3rem;
             margin-bottom: 5px;
-            display: block;
+        }
+        .cert-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        .cert-card .cert-link {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .cert-card .cert-link:hover {
+            text-decoration: underline;
         }
 
-        /* --- 7. ACHIEVEMENTS SECTION --- */
+
+       /* JOURNEY SECTION */
+.journey-section {
+    background: #111e38;
+    padding: 70px 0;
+}
+
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.timeline::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    background: rgba(255,255,255,0.2);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Timeline Item */
+.timeline-item {
+    padding: 20px 40px;
+    position: relative;
+    width: 50%;
+}
+
+.timeline-item.left { left: 0; text-align: right; }
+.timeline-item.right { left: 50%; }
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    width: 20px;
+    height: 20px;
+    background: #38bdf8;
+    border: 4px solid #111e38;
+    border-radius: 50%;
+    z-index: 2;
+    transition: 0.3s;
+}
+
+.timeline-item.left::before { right: -10px; }
+.timeline-item.right::before { left: -10px; }
+
+/* Content Box */
+.timeline-content {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s ease;
+}
+
+.timeline-content:hover {
+    border-color: #38bdf8;
+    box-shadow: 0 10px 25px rgba(56,189,248,0.3);
+}
+
+.timeline-content .date {
+    color: #38bdf8;
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .timeline::after {
+        left: 30px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        text-align: left !important;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+        left: 0;
+    }
+
+    .timeline-item::before {
+        left: 18px;
+    }
+}
+
+        /* --- 9. ACHIEVEMENTS & SOCIAL PROOF --- */
         .achievements-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px;
         }
 
         .achievement-card {
             background-color: var(--card-bg);
-            padding: 20px;
+            padding: 25px; 
             border-radius: 10px;
             display: flex;
             align-items: center;
             gap: 15px;
             border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .achievement-card:hover {
+            transform: scale(1.02);
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
         }
 
         .achievement-icon {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--primary);
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
+            background-color: rgba(168, 85, 247, 0.1); 
+            color: var(--secondary); 
+            width: 60px; 
+            height: 60px;
+            border-radius: 50%; 
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem; 
         }
 
-        .achievement-card h3 {
-            font-size: 1.05rem;
+        .achievement-card h3 { font-size: 1.15rem; color: var(--primary); }
+        .achievement-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+        /* Social Proof Widget (Feature 5 - Mock Data) */
+        .social-proof-grid {
+            margin-top: 40px; 
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        .achievement-card p {
+        .proof-card {
+            background-color: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 180px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .proof-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .proof-card h4 {
+            font-size: 2rem;
+            color: var(--text-main);
+            line-height: 1;
+        }
+        .proof-card p {
             font-size: 0.9rem;
             color: var(--text-muted);
+            margin-top: 5px;
         }
 
-        /* --- 8. PROJECTS SECTION --- */
+
+        /* --- 10. PROJECTS SECTION --- */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 30px;
         }
 
@@ -362,17 +608,19 @@
             background-color: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
-            transition: var(--transition);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .project-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.3);
         }
 
         .project-img {
-            height: 180px;
+            height: 200px; 
             background-color: #334155;
             overflow: hidden;
         }
@@ -381,122 +629,179 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
+            transition: transform 0.5s ease;
         }
 
         .project-card:hover .project-img img {
-            transform: scale(1.05);
+            transform: scale(1.08); 
         }
 
-        .project-info { padding: 20px 22px 22px; }
-        .project-info h3 { margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem; }
-        .project-info p { color: var(--text-muted); margin-bottom: 15px; font-size: 0.9rem; }
+        .project-info { padding: 25px; } 
+        .project-info h3 { margin-bottom: 10px; color: var(--primary); font-size: 1.2rem; } 
+        .project-info p { color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem; }
 
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-        .tag { background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; color: var(--primary); }
-
-        .project-links a {
-            margin-right: 12px;
-            font-size: 0.9rem;
-            color: var(--text-main);
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; } 
+        .tag { 
+            background: rgba(168, 85, 247, 0.15); 
+            padding: 5px 12px; 
+            border-radius: 50px; 
+            font-size: 0.8rem; 
+            color: var(--secondary); 
             font-weight: 500;
         }
-        .project-links a i { margin-right: 4px; }
+
+        .project-links a {
+            margin-right: 15px;
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .project-links a i { margin-right: 6px; }
         .project-links a:hover { color: var(--primary); }
 
-        /* --- 9. CONTACT SECTION --- */
+        /* --- 11. CONTACT & FOOTER --- */
         .contact-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 40px;
+            gap: 50px;
             justify-content: center;
         }
-
         .contact-info { flex: 1; min-width: 300px; }
-
         .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             background: var(--card-bg);
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
         }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-right: 15px;
-        }
-
-        .contact-item h3 {
-            margin-bottom: 4px;
-        }
-        .contact-item p, .contact-item a {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
+        .contact-item:hover { box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
+        .contact-item i { font-size: 1.8rem; color: var(--secondary); margin-right: 20px; }
+        .contact-item h3 { margin-bottom: 5px; color: var(--primary); }
+        .contact-item p, .contact-item a { font-size: 0.95rem; color: var(--text-muted); transition: color 0.3s ease; }
+        .contact-item a:hover { color: var(--primary); }
         .contact-form {
             flex: 1;
-            min-width: 300px;
+            min-width: 350px; 
             background: var(--card-bg);
-            padding: 30px;
+            padding: 35px;
             border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
         }
-
-        .form-group { margin-bottom: 15px; }
-
+        .form-group { margin-bottom: 20px; }
         input, textarea {
             width: 100%;
-            padding: 12px;
+            padding: 15px; 
             background-color: var(--bg-color);
             border: 1px solid #334155;
             color: #fff;
-            border-radius: 5px;
+            border-radius: 8px; 
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
 
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* --- 10. FOOTER --- */
         footer {
             background-color: #020617;
             text-align: center;
-            padding: 40px 0;
+            padding: 50px 0;
             margin-top: 50px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(56, 189, 248, 0.1);
         }
-
-        .social-links { margin-bottom: 20px; }
+        .social-links { margin-bottom: 25px; }
         .social-links a {
-            font-size: 1.2rem;
-            margin: 0 8px;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
+            font-size: 1.4rem; 
+            margin: 0 10px;
+            width: 45px;
+            height: 45px;
+            line-height: 45px;
             display: inline-block;
             background: var(--card-bg);
             border-radius: 50%;
             transition: var(--transition);
+            color: var(--text-main);
         }
-        .social-links a:hover { background: var(--primary); color: var(--bg-color); }
+        .social-links a:hover { 
+            background: var(--primary); 
+            color: var(--bg-color); 
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+        footer p { font-size: 0.95rem; color: var(--text-muted); }
 
-        footer p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+        /* --- 12. UTILITY FEATURES (Sticky Social Bar & Scroll to Top) --- */
+
+        /* Sticky Social Side Bar (Optional 2) */
+        #sticky-social-bar {
+            position: fixed;
+            bottom: 30%;
+            right: 0;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #sticky-social-bar a {
+            background-color: var(--card-bg);
+            color: var(--primary);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        #sticky-social-bar a:hover {
+            background-color: var(--primary);
+            color: var(--bg-color);
+            transform: translateX(-5px);
+        }
+        
+        /* Scroll to Top Button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--secondary);
+            color: var(--text-main);
+            width: 45px;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(168, 85, 247, 0.5);
+            cursor: pointer;
+            display: none; 
+            transition: var(--transition);
+            z-index: 100;
+            opacity: 0.9;
+        }
+        #scroll-to-top:hover {
+            opacity: 1;
+            background-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(56, 189, 248, 0.7);
         }
 
-        /* --- 11. RESPONSIVE DESIGN --- */
+        /* --- 13. RESPONSIVE DESIGN --- */
+        @media (max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .about-image { order: -1; }
+            #sticky-social-bar { display: none; } /* Hide sticky bar on smaller screens */
+        }
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.4rem; }
-            .hero-content h2 { font-size: 1.1rem; }
-
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content h2 { font-size: 1.3rem; }
+            section { padding: 40px 0; } /* Even tighter on mobile */
             .menu-btn { display: block; }
             .nav-links {
                 position: absolute;
@@ -512,10 +817,10 @@
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
             .nav-links.active { display: flex; }
-
+            /* Mobile timeline fix */
             .timeline::after { left: 31px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .timeline-item::after { left: 21px; }
+            .timeline-item::after { left: 21px; border-width: 4px; } /* Ensure dot is clearly visible */
             .timeline-item.left { text-align: left; }
             .right { left: 0; }
         }
@@ -523,46 +828,87 @@
 </head>
 <body>
 
+    <!-- STICKY SOCIAL SIDE BAR (Desktop Only) -->
+    <div id="sticky-social-bar">
+        <a href="https://github.com/athrav138" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/atharv-suryavanshi-5b0969352" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/atharv_8830" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+
     <!-- NAVBAR -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo">Atharv<span style="color:var(--primary)">.Portfolio</span></a>
-            <div class="menu-btn"><i class="fas fa-bars"></i></div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Journey</a></li>
-                <li><a href="#achievements">Achievements</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <div class="menu-btn" id="menu-btn"><i class="fas fa-bars"></i></div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#certifications" class="nav-link">Certificates</a></li>
+                <li><a href="#journey" class="nav-link">Journey</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- HERO SECTION -->
     <section id="home" class="hero">
-        <div class="container hero-content">
+        <div class="container hero-content scroll-reveal">
             <div class="hero-img-container">
                 <img src="Atharv.jpg" alt="Atharv Profile Picture">
             </div>
             
             <h1>Hi, I'm Atharv Milind Suryavanshi</h1>
-            <h2>Cyber Security & Problem Solving Enthusiast</h2>
-            <p>I love exploring <strong>Cyber Security</strong>, <strong>C/C++</strong>, and <strong>DSA</strong> while building real-world projects in web development.</p>
-            <h2>I am a <span class="typewriter" id="typewriter">Student</span></h2>
+            <h2>
+                I am a 
+                <span class="typewriter" id="typewriter"></span>
+            </h2> 
+            <p style="font-size: 1.2rem; color: var(--primary); font-weight: 500;">
+                Cyber Security & Problem Solving Enthusiast
+            </p>
 
-            <div class="buttons" style="margin-top: 15px;">
+            <div class="buttons" style="margin-top: 25px;">
                 <a href="#projects" class="btn btn-primary">View My Projects</a>
                 <a href="https://shorturl.at/aOOZP" class="btn btn-outline" target="_blank" rel="noopener">Download Resume</a>
             </div>
         </div>
     </section>
 
+    <!-- ABOUT ME SECTION -->
+    <section id="about" style="background-color: #162032;">
+        <div class="container scroll-reveal">
+            <h2 class="section-title">About <span>Me</span></h2>
+            <p class="section-subtitle">A brief introduction to my passions and goals</p>
+            
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://placehold.co/250x300/1e293b/a855f7?text=ATHARV" alt="Profile Sketch Placeholder">
+                </div>
+                <div class="about-content">
+                    <h3>The Interplay of Tech and Service</h3>
+                    <p>
+                        I am a dedicated **Computer Engineering Diploma student** with a relentless focus on mastering the fundamentals of technology. My core passion lies in **Cyber Security**, understanding digital architecture, and applying robust **DSA (Data Structures & Algorithms)** principles to solve complex problems efficiently.
+                    </p>
+                    <p>
+                        I have a strong foundation in **C & C++** and am actively expanding my practical skills through web development projects (HTML, CSS, JavaScript). My goal is not just to consume technology, but to build secure, scalable solutions.
+                    </p>
+                    <p>
+                        Beyond the technical realm, I hold a deep aspiration to contribute to public service by preparing for the **UPSC (IAS/IFS)** exams. I believe in combining my technological expertise with a commitment to societal impact, ensuring technology serves the greater good.
+                    </p>
+                    <div style="margin-top: 30px;">
+                        <a href="#contact" class="btn btn-primary">Let's Connect</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SKILLS SECTION -->
     <section id="skills">
-        <div class="container">
-            <h2 class="section-title">My <span>Skills</span></h2>
-            <p class="section-subtitle">Technologies & concepts I work with</p>
+        <div class="container scroll-reveal">
+            <h2 class="section-title">My <span>Skills</span> & Focus</h2>
+            <p class="section-subtitle">Technologies, concepts, and consistent Vibe Coding</p>
             <div class="skills-grid">
                 <div class="skill-card">
                     <i class="fas fa-code"></i>
@@ -577,7 +923,7 @@
                 <div class="skill-card">
                     <i class="fas fa-cubes"></i>
                     <h3>Object-Oriented Programming</h3>
-                    <p>Classes, objects, inheritance, polymorphism, encapsulation, and abstraction.</p>
+                    <p>Classes, inheritance, polymorphism, encapsulation, and abstraction.</p>
                 </div>
                 <div class="skill-card">
                     <i class="fab fa-html5"></i>
@@ -591,7 +937,7 @@
                 </div>
                 <div class="skill-card">
                     <i class="fas fa-shield-halved"></i>
-                    <h3>Cyber Security Basics</h3>
+                    <h3>Networking & Security Basics</h3>
                     <p>Interest in ethical hacking, security concepts, and safe coding practices.</p>
                 </div>
                 <div class="skill-card">
@@ -605,65 +951,149 @@
                     <p>Designing effective prompts to get the best out of AI models.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- JOURNEY / EDUCATION SECTION -->
-    <section id="experience" style="background-color: #162032;">
-        <div class="container">
-            <h2 class="section-title">My <span>Journey</span></h2>
-            <p class="section-subtitle">Where I am and where I'm heading</p>
             
-            <div class="timeline">
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <span class="date">2024 - Present</span>
-                        <h3>Diploma in Computer Engineering</h3>
-                        <h4>MSBTE</h4>
-                        <p>Learning core CS subjects like Programming, DSA, DBMS, and Computer Networks while building projects in web development and security.</p>
+            <!-- Dynamic Learning Tracker (Feature 7) -->
+            <h2 class="section-title" style="margin-top: 40px; margin-bottom: 20px; font-size: 1.8rem;">Current <span>Learning Track</span></h2>
+            <div class="tracker-grid">
+                <div class="progress-item">
+                    <h4>Ethical Hacking <span id="progress-1-percent">0%</span></h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-1" style="width: 0%;"></div>
                     </div>
                 </div>
-                <div class="timeline-item right">
-                    <div class="timeline-content">
-                        <span class="date">2023</span>
-                        <h3>SSC (10th Board)</h3>
-                        <h4>State Board</h4>
-                        <p>Completed SSC with strong fundamentals, scoring excellent marks and building interest in technology and computers.</p>
+                <div class="progress-item">
+                    <h4>Advanced DSA <span id="progress-2-percent">0%</span></h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-2" style="width: 0%;"></div>
                     </div>
                 </div>
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <span class="date">2025 - 2028 (Goal)</span>
-                        <h3>B.Tech in AI & ML</h3>
-                        <h4>Future Plan</h4>
-                        <p>Aiming to pursue a B.Tech in Artificial Intelligence & Machine Learning to go deeper into advanced tech and problem solving.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-content">
-                        <span class="date">Long Term</span>
-                        <h3>UPSC (IAS / IFS) Aspirant</h3>
-                        <h4>Future Vision</h4>
-                        <p>Along with tech, I want to contribute to society by preparing for IAS/IFS and combining technology with public service.</p>
+                <div class="progress-item">
+                    <h4>Linux OS Concepts <span id="progress-3-percent">0%</span></h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-3" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ACHIEVEMENTS SECTION -->
-    <section id="achievements">
-        <div class="container">
-            <h2 class="section-title"><span>Achievements</span></h2>
-            <p class="section-subtitle">Some things I'm proud of</p>
-            <div class="achievements-grid">
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <div>
-                        <h3>Strong Academic Performance</h3>
-                        <p>Consistent focus on fundamentals in Mathematics, Science, and Computer Science.</p>
-                    </div>
+    <!-- CERTIFICATIONS SECTION -->
+    <section id="certifications" style="background-color: #162032;">
+        <div class="container scroll-reveal">
+            <h2 class="section-title">My <span>Certifications</span></h2>
+            <p class="section-subtitle">Documenting formal learning and validated skills</p>
+            
+            <div class="certification-grid">
+                
+                <div class="cert-card">
+                    <i class="fas fa-certificate" style="color: var(--secondary); float: right; font-size: 2rem;"></i>
+                    <h3>PYTHON</h3>
+                    <p>Platform: GeeksforGeeks</p>
+                    <p>Issued: October 2025</p>
+                    <a href="https://drive.google.com/file/d/1GPBx4YZdb0A-AppR1yXh7ua00IWQvoz1/view?usp=drivesdk" class="cert-link" target="_blank">View Credential <i class="fas fa-external-link-alt"></i></a>
                 </div>
+
+                <div class="cert-card">
+                    <i class="fas fa-certificate" style="color: var(--secondary); float: right; font-size: 2rem;"></i>
+                    <h3>JAVA</h3>
+                    <p>Platform: SOLOLEARN</p>
+                    <p>Platform: Swayam NPTEl</p>
+                    <p>Issued: December 2025</p>
+                    <a href="https://drive.google.com/file/d/1Ty4iO4Qt4jlCmSov9SHcmVM1UxwguoAC/view?usp=drivesdk" class="cert-link" target="_blank">View Credential <i class="fas fa-external-link-alt"></i></a><p>    </p>
+                    <a href="https://drive.google.com/file/d/1R3mKK7XISNrq3RIZCNPFR9JEdYz0nPZp/view?usp=drivesdk" class="cert-link" target="_blank">        View Credential <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <i class="fas fa-certificate" style="color: var(--secondary); float: right; font-size: 2rem;"></i>
+                    <h3>Advanced Cybersecurity Concepts and Capstone
+Project</h3>
+                    <p>Platform: Coursera</p>
+                    <p>Issued: June 2025</p>
+                    <a href="https://drive.google.com/file/d/1Bkjhp9oQ5GbxZaOApIofH9kx2tqKrcO5/view" class="cert-link" target="_blank">View Credential <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <i class="fas fa-certificate" style="color: var(--secondary); float: right; font-size: 2rem;"></i>
+                    <h3>Foundations: Data, Data, Everywhere</h3>
+                    <p>Platform: Coursera</p>
+                    <p>Issued: Dec 2025</p>
+                    <a href="https://drive.google.com/file/d/10wRai5k9GwpkR6O-9dqc3npUAMqe5xqa/view" class="cert-link" target="_blank">View Credential <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                 <div class="cert-card">
+                    <i class="fas fa-certificate" style="color: var(--secondary); float: right; font-size: 2rem;"></i>
+                    <h3>Introduction To Networking</h3>
+                    <p>Platform: Coursera</p>
+                    <p>Issued: Dec 2025</p>
+                    <a href="https://drive.google.com/file/d/1gYiAUq5412GXg0ZjAm3AwHzMSamwKlPr/view" class="cert-link" target="_blank">View Credential <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                 <div class="cert-card">
+                    <i class="fas fa-certificate" style="color: var(--secondary); float: right; font-size: 2rem;"></i>
+                    <h3>Web Ai Hackthon</h3>
+                    <p>Platform: DKTE</p>
+                    <p>Issued: August 2025</p>
+                    <a href="https://drive.google.com/file/d/12I9qMUkNpMlDKQvPR3d-Kdlq-3JkQLq_/view" class="cert-link" target="_blank">View Credential <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- JOURNEY SECTION -->
+<section id="journey" class="journey-section">
+    <div class="container">
+
+        <h2 class="section-title">My <span>Journey</span></h2>
+        <p class="section-subtitle">A timeline of my academic and technical growth</p>
+
+        <div class="timeline">
+
+            <!-- 2023 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <span class="date">2023</span>
+                    <h3>SSC (10th Board) – 97%</h3>
+                    <p>Completed schooling at Sane Guruji Vidyalay, Kurundwad with excellent performance. Built strong fundamentals and discipline.</p>
+                </div>
+            </div>
+
+            <!-- 2024 (Coding Basics) -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <span class="date">2024</span>
+                    <h3>Started C Language & Coding Basics</h3>
+                    <p>Began learning C, logic building, simple programs, and foundational problem solving. Started enjoying programming.</p>
+                </div>
+            </div>
+
+            <!-- 2024–Present (Diploma) -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <span class="date">2024 – Present</span>
+                    <h3>Diploma in Computer Engineering (MSBTE)</h3>
+                    <p>Studying at DKTE YCP. Learning DSA, Java, Networking, OS, DBMS, Power BI & Cyber Security fundamentals.</p>
+                </div>
+            </div>
+
+            <!-- Future Goal -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <span class="date">Future</span>
+                    <h3>Cyber Security & Ethical Hacking Career</h3>
+                    <p>Aiming to build a professional career in penetration testing, network security, and Ethical Hacking.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- ACHIEVEMENTS & SOCIAL PROOF SECTION -->
+    <section id="achievements" style="background-color: #162032;">
+        <div class="container scroll-reveal">
+            <h2 class="section-title"><span>Achievements</span> & Metrics</h2>
+            <p class="section-subtitle">Some things I'm proud of, quantified</p>
+            <div class="achievements-grid">
                 <div class="achievement-card">
                     <div class="achievement-icon"><i class="fas fa-laptop-code"></i></div>
                     <div>
@@ -674,8 +1104,8 @@
                 <div class="achievement-card">
                     <div class="achievement-icon"><i class="fas fa-bug-slash"></i></div>
                     <div>
-                        <h3>Cyber Security Interest</h3>
-                        <p>Actively learning about ethical hacking, secure coding, and cyber security fundamentals.</p>
+                        <h3>Working with Tools</h3>
+                        <p>MySQL & Oracle DBMS, Power BI, Kali/Ubuntu & Windows OS, IDE Vs code & Google Colab</p>
                     </div>
                 </div>
                 <div class="achievement-card">
@@ -686,12 +1116,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Social Proof Widgets (Feature 5 - Mock Data) -->
+            <div class="social-proof-grid">
+                <div class="proof-card">
+                    <i class="fab fa-github"></i>
+                    <h4>12+</h4>
+                    <p>Total Repositories</p>
+                </div>
+                <div class="proof-card">
+                    <i class="fas fa-user-check"></i>
+                    <h4>75+</h4>
+                    <p>LeetCode Solved</p>
+                </div>
+                <div class="proof-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h4>Active</h4>
+                    <p>On LinkedIn</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- PROJECTS SECTION -->
-    <section id="projects" style="background-color: #162032;">
-        <div class="container">
+    <section id="projects">
+        <div class="container scroll-reveal">
             <h2 class="section-title">My <span>Projects</span></h2>
             <p class="section-subtitle">All projects are live and hosted publicly</p>
             <div class="project-grid">
@@ -699,14 +1148,12 @@
                 <!-- Project 1: Apna E-Book -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="Ebook.png" alt="Apna E-Book Website">
+                        <img src="Ebook.png" onerror="this.onerror=null; this.src='https://placehold.co/400x200/334155/f1f5f9?text=Ebook+Project+Placeholder';" alt="Apna E-Book Website">
                     </div>
                     <div class="project-info">
                         <h3>Apna E-Book</h3>
                         <div class="tags">
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                            <span class="tag">Frontend</span>
+                            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Frontend</span>
                         </div>
                         <p>An e-book platform UI where users can explore books in a clean, simple interface.</p>
                         <div class="project-links">
@@ -719,13 +1166,12 @@
                 <!-- Project 2: Web AI Hackathon -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="Taskmanager.png" alt="Web AI Hackathon">
+                        <img src="Taskmanager.png" onerror="this.onerror=null; this.src='https://placehold.co/400x200/334155/a855f7?text=Hackathon+Project+Placeholder';" alt="Web AI Hackathon">
                     </div>
                     <div class="project-info">
                         <h3>Web AI Hackathon Project</h3>
                         <div class="tags">
-                            <span class="tag">Web</span>
-                            <span class="tag">AI Concept</span>
+                            <span class="tag">Web</span><span class="tag">AI Concept</span>
                         </div>
                         <p>A project built for a Web AI hackathon, combining UI and AI-based ideas into an interactive experience.</p>
                         <div class="project-links">
@@ -738,14 +1184,12 @@
                 <!-- Project 3: Calculator Website -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="Calci.png" alt="Calculator Website">
+                        <img src="Calci.png" onerror="this.onerror=null; this.src='https://placehold.co/400x200/334155/38bdf8?text=Calculator+Placeholder';" alt="Calculator Website">
                     </div>
                     <div class="project-info">
                         <h3>Calculator Website</h3>
                         <div class="tags">
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                            <span class="tag">JavaScript</span>
+                            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
                         </div>
                         <p>A simple and clean calculator with basic operations, built using HTML, CSS, and JavaScript.</p>
                         <div class="project-links">
@@ -754,75 +1198,13 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 4: Animated Login & Signup UI -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="signup.png" alt="Animated Login Signup UI">
-                    </div>
-                    <div class="project-info">
-                        <h3>Animated Login & Signup UI</h3>
-                        <div class="tags">
-                            <span class="tag">UI/UX</span>
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                        </div>
-                        <p>An animated authentication UI with modern transitions for login and signup pages.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/athrav138/Animated-Login-Signup-UI" target="_blank"><i class="fab fa-github"></i>Code</a>
-                            <a href="https://athrav138.github.io/Animated-Login-Signup-UI/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5: Portfolio Website 1 -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="portfolio.png" alt="Portfolio Website 1">
-                    </div>
-                    <div class="project-info">
-                        <h3>Portfolio Website v1</h3>
-                        <div class="tags">
-                            <span class="tag">Portfolio</span>
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                        </div>
-                        <p>One of my early portfolio designs to showcase my skills and projects with a clean layout.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/athrav138/ATHARV-S-PORFOLIO-WEB" target="_blank"><i class="fab fa-github"></i>Code</a>
-                            <a href="https://athrav138.github.io/ATHARV-S-PORFOLIO-WEB/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
-                            <a href="https://bit.ly/3KqiIBe" target="_blank"><i class="fas fa-link"></i>Short Link</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 6: Portfolio Website 2 -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="portfolio2.png" alt="Portfolio Website 2">
-                    </div>
-                    <div class="project-info">
-                        <h3>Portfolio Website v2</h3>
-                        <div class="tags">
-                            <span class="tag">Portfolio</span>
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                        </div>
-                        <p>An improved version of my portfolio website with better structure and UI enhancements.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/athrav138/Atharv-s-Portfolio-Website" target="_blank"><i class="fab fa-github"></i>Code</a>
-                            <a href="https://athrav138.github.io/Atharv-s-Portfolio-Website/" target="_blank"><i class="fas fa-external-link-alt"></i>Live</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
     <!-- CONTACT SECTION -->
-    <section id="contact">
-        <div class="container">
+    <section id="contact" style="background-color: #162032;">
+        <div class="container scroll-reveal">
             <h2 class="section-title">Contact <span>Me</span></h2>
             <p class="section-subtitle">Let's collaborate or connect</p>
             
@@ -877,28 +1259,27 @@
                 <a href="https://github.com/athrav138" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/atharv-suryavanshi-5b0969352" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://leetcode.com/u/Atharv138/" target="_blank"><i class="fas fa-code"></i></a>
-                <a href="https://www.hackerrank.com/profile/suryavanshiathr1" target="_blank"><i class="fab fa-hackerrank"></i></a>
+                <a href="https://www.hackerrank.com/profile/suryavanshiathr1" target="_blank"><i class="fab fa-hackerrank"></i></a> 
                 <a href="https://www.instagram.com/atharv_8830" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
             <p>&copy; 2025 Atharv Milind Suryavanshi. All Rights Reserved.</p>
         </div>
     </footer>
+    
+    <!-- SCROLL TO TOP BUTTON -->
+    <a href="#home" id="scroll-to-top"><i class="fas fa-arrow-up"></i></a>
 
     <!-- JAVASCRIPT -->
     <script>
-        const menuBtn = document.querySelector('.menu-btn');
-        const navLinks = document.querySelector('.nav-links');
+        // --- 1. Mobile Menu Toggle ---
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
 
         menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             const icon = menuBtn.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
 
         document.querySelectorAll('.nav-links a').forEach(link => {
@@ -909,6 +1290,7 @@
             });
         });
 
+        // --- 2. Typewriter Effect ---
         const textElement = document.getElementById('typewriter');
         const words = [
             'Cyber Security Enthusiast',
@@ -923,6 +1305,7 @@
 
         function type() {
             const currentWord = words[wordIndex];
+            let speed = isDeleting ? 60 : 120;
             
             if (isDeleting) {
                 textElement.textContent = currentWord.substring(0, charIndex - 1);
@@ -934,17 +1317,110 @@
 
             if (!isDeleting && charIndex === currentWord.length) {
                 isDeleting = true;
-                setTimeout(type, 1500);
+                speed = 1500; 
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % words.length;
-                setTimeout(type, 400);
-            } else {
-                setTimeout(type, isDeleting ? 60 : 120);
+                speed = 400; 
             }
+            setTimeout(type, speed);
         }
 
-        document.addEventListener('DOMContentLoaded', type);
+        // --- 3. Scroll Effects (Sticky Navbar & Scroll-to-Top) ---
+        const navbar = document.getElementById('navbar');
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+        function handleScroll() {
+            // Sticky Navbar
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Scroll to Top Button
+            if (window.scrollY > 300) {
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+
+        // --- 4. Dynamic Learning Tracker Animation (Progress Bars) ---
+        function animateProgress(id, percentage) {
+            const fill = document.getElementById(id);
+            const percentText = document.getElementById(`${id}-percent`);
+            
+            // Reset to 0% before starting
+            fill.style.width = '0%';
+            percentText.textContent = '0%';
+
+            setTimeout(() => {
+                // Set final width after a slight delay
+                fill.style.width = `${percentage}%`;
+                
+                // Animate number count up
+                let start = 0;
+                const duration = 1500;
+                const step = percentage / (duration / 20); // 20ms update interval
+                
+                const timer = setInterval(() => {
+                    start += step;
+                    if (start >= percentage) {
+                        start = percentage;
+                        clearInterval(timer);
+                    }
+                    percentText.textContent = `${Math.floor(start)}%`;
+                }, 20);
+            }, 100); 
+        }
+
+        // --- 5. Scroll Reveal with Intersection Observer ---
+        const sections = document.querySelectorAll('section');
+        const navLinksList = document.querySelectorAll('.nav-link');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
+
+                if (entry.isIntersecting) {
+                    // Make section content visible
+                    const revealElement = entry.target.querySelector('.scroll-reveal');
+                    if (revealElement) {
+                        revealElement.classList.add('visible');
+                    }
+                    
+                    // Highlight nav link
+                    navLinksList.forEach(link => link.classList.remove('active'));
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                    
+                    // Trigger progress bar animation only when Skills is visible
+                    if (id === 'skills') {
+                        animateProgress('progress-1', 75); // Ethical Hacking
+                        animateProgress('progress-2', 60); // Advanced DSA
+                        animateProgress('progress-3', 40); // Linux OS Concepts
+                    }
+                }
+            });
+        }, {
+            threshold: 0.3, // Visibility percentage required to trigger
+            rootMargin: '0px 0px -20% 0px'
+        });
+
+        // Observe all sections
+        sections.forEach(section => {
+             observer.observe(section);
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            type();
+            handleScroll(); 
+        });
     </script>
 </body>
 </html>
